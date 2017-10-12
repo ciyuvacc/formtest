@@ -2,7 +2,7 @@
 from django.template.loader import get_template
 from django.template import RequestContext
 from django.http import HttpResponse
-from mysite import models
+from mysite import models,forms
 
 def index1(request):
     template = get_template('index.html')
@@ -85,6 +85,33 @@ def posting(request):
     request_context = RequestContext(request)
     request_context.push(locals())
 
+    html = template.render(request_context)
+
+    return HttpResponse(html)
+
+
+
+def contact(request):
+    if request.method == 'POST':
+        form = forms.ContactForm(request.POST)
+        if form.is_valid():
+            message = '感谢您的来信.'
+      
+            user_name = form.cleaned_data['user_name']
+            user_city = form.cleaned_data['user_city']
+            user_school  = form.cleaned_data['user_school']
+            user_email = form.cleaned_data['user_email']
+            user_message = form.cleaned_data['user_message']
+
+
+        else:
+            message = '请检查您的输入信息是否正确!'
+    else:
+        form = forms.ContactForm()
+    template = get_template('contact.html')
+
+    request_context = RequestContext(request)
+    request_context.push(locals())
     html = template.render(request_context)
 
     return HttpResponse(html)
