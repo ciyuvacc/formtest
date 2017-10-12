@@ -7,4 +7,6 @@ urlpatterns = [
     url(r'^$',views.index),
     url(r'^index/$',views.index),
     url(r'^(\d+)/(\w+)/$',views.index),
+    url(r'^list/$',views.listing),
+    url(r'^post/$',views.posting),
 ]
