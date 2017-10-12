@@ -9,5 +9,6 @@ urlpatterns = [
     url(r'^(\d+)/(\w+)/$',views.index),
     url(r'^list/$',views.listing),
     url(r'^post/$',views.posting),
+    url(r'^post2db/$',views.post2db),
     url(r'^contact/$',views.contact),
 ]
