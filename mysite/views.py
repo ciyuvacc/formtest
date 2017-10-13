@@ -1,7 +1,7 @@
 #coding:utf8
 from django.template.loader import get_template
 from django.template import RequestContext
-from django.http import HttpResponse
+from django.http import HttpResponse,HttpResponseRedirect
 from mysite import models,forms
 
 def index1(request):
@@ -117,4 +117,26 @@ def contact(request):
     return HttpResponse(html)
 
 
+
+def post2db(request):
+    if request.method == 'POST':
+        post_form = forms.PostForm(request.POST)
+        if post_form.is_valid():
+            message = "你的信息已存储,要等管理员启用后才能看到."
+            post_form.save()
+            return HttpResponseRedirect('/list/')
+        else:
+            message = '如果要张贴信息,那么没一个字段都要填...'
+    else:
+        post_form = forms.PostForm()
+        message = '如果要张贴信息,那么没一个字段都要填...'
+
+    template = get_template('post2db.html')
+
+    request_context = RequestContext(request)
+    request_context.push(locals())
+
+    html = template.render(request_context)
+
+    return HttpResponse(html)
 

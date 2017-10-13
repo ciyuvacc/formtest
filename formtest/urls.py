@@ -4,6 +4,7 @@ from mysite import views
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^captcha/', include('captcha.urls')),
     url(r'^$',views.index),
     url(r'^index/$',views.index),
     url(r'^(\d+)/(\w+)/$',views.index),
